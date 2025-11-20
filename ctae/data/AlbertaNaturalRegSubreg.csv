@@ -1,0 +1,22 @@
+NaturalRegion,NaturalSubregion,NaturalSubregionNum,NaturalSubregionCode
+Boreal Forest,Central Mixedwood,1,CM
+Boreal Forest,Dry Mixedwood,2,DMW
+Boreal Forest,Northern Mixedwood (Wetland Mixedwood),3,NM
+Boreal Forest,Boreal Subarctic,4,BSA
+Boreal Forest,Peace-Athabasca Delta (Peace River Lowlands),5,PAD
+Boreal Forest,Lower Boreal Highlands (Boreal Highlands),6,LBH
+Boreal Forest,Upper Boreal Highlands (Boreal Highlands),21,UB
+Boreal Forest,Athabasca Plain,12,AP
+Rocky Mountain,Alpine,7,ALP
+Rocky Mountain,Subalpine,8,SA
+Rocky Mountain,Montane,9,M
+Foothills,Upper Foothills,10,UF
+Foothills,Lower Foothills,11,LF
+Canadian Shield,Kazan Upland,13,KU
+Parkland,Foothills Parkland,14,FP
+Parkland,Peace River Parkland,15,PRP
+Parkland,Central Parkland,16,CP
+Grassland,Dry Mixedgrass,17,DMG
+Grassland,Foothills Fescue,18,FF
+Grassland,Northern Fescue,19,NF
+Grassland,Mixedgrass,20,MG
