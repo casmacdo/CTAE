@@ -1,0 +1,23 @@
+{
+  "Acer saccharum": {
+    "crown_a": 0.5,
+    "crown_b": 0.38,
+    "max_radius_m": 12.0,
+    "interception_rate": 0.28,
+    "leaf_type": "deciduous"
+  },
+  "Acer platanoides": {
+    "crown_a": 0.4,
+    "crown_b": 0.36,
+    "max_radius_m": 11.0,
+    "interception_rate": 0.26,
+    "leaf_type": "deciduous"
+  },
+  "Tilia americana": {
+    "crown_a": 0.3,
+    "crown_b": 0.40,
+    "max_radius_m": 13.0,
+    "interception_rate": 0.30,
+    "leaf_type": "deciduous"
+  }
+}
