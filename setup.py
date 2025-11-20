@@ -32,7 +32,7 @@ setup(
         "pandas>=1.3.0",
     ],
     package_data={
-        "ctae": ["data/*.csv"],
+        "ctae": ["data/*.csv", "data/*.json"],
     },
     include_package_data=True,
 )

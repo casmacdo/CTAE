@@ -11,6 +11,14 @@ from .v2b import V2B
 from .vtot2vmerch import Vtot2Vmerch
 from .agb_prop import AGB_prop
 from .ung2009 import Ung2009
+from .services import (
+    estimate_canopy_area,
+    estimate_stormwater_interception,
+    estimate_cooling_savings,
+    estimate_pollution_removal,
+    estimate_total_value,
+    estimate_values_for_dataframe,
+)
 
 __version__ = "0.4.3"
 
@@ -22,4 +30,10 @@ __all__ = [
     "Vtot2Vmerch",
     "AGB_prop",
     "Ung2009",
+    "estimate_canopy_area",
+    "estimate_stormwater_interception",
+    "estimate_cooling_savings",
+    "estimate_pollution_removal",
+    "estimate_total_value",
+    "estimate_values_for_dataframe",
 ]

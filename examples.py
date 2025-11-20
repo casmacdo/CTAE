@@ -101,6 +101,40 @@ print(f"Trees with DBH={list(dbh_values)} cm, species=PINU.CON")
 print(f"  Total biomass: {result['Btotal']}")
 print()
 
+# Example 9: Urban ecosystem services estimation
+print("Example 9: Urban ecosystem services estimation")
+print("-" * 70)
+# Create a sample tree dataset
+tree_data = pd.DataFrame({
+    "ID_Arbre": [1, 2, 3],
+    "DHP": [25.0, 35.0, 45.0],
+    "Essence_latin": ["Acer saccharum", "Acer saccharum", "Acer rubrum"]
+})
+
+# Define species mapping for CTAE
+def map_species_to_ctae(latin_name):
+    """Map Latin species names to CTAE species codes."""
+    mapping = {
+        "Acer saccharum": "ACER.SAC",
+        "Acer rubrum": "ACER.RUB",
+    }
+    return mapping.get(latin_name, None)
+
+# Calculate ecosystem services for all trees
+params = {
+    "map_species_to_ctae": map_species_to_ctae,
+    "annual_rainfall_mm": 1000.0,  # Montreal typical
+    "carbon_price": 75.0,  # USD per ton
+}
+results = ctae.estimate_values_for_dataframe(tree_data, ctae_module=ctae, params=params)
+
+print(f"Urban ecosystem services for {len(tree_data)} trees:")
+print()
+print(results[['ID_Arbre', 'biomass_kg', 'canopy_area_m2', 'total_value_usd']].to_string(index=False))
+print()
+print(f"Total ecosystem value: ${results['total_value_usd'].sum():.2f}")
+print()
+
 print("=" * 70)
 print("For more information, see README_PYTHON.md")
 print("=" * 70)
