@@ -66,3 +66,13 @@ def load_alberta_natural_subregions() -> pd.DataFrame:
             get_data_path("AlbertaNaturalRegSubreg.csv")
         )
     return _DATA_CACHE["alberta_subregions"]
+
+
+def load_parameters_ung2009() -> Dict[str, pd.DataFrame]:
+    """Load Ung2009 growth model parameters (Nat1 and Nat2 models)."""
+    if "ung2009" not in _DATA_CACHE:
+        _DATA_CACHE["ung2009"] = {
+            "nat1": pd.read_csv(get_data_path("ung2009_nat1.csv")),
+            "nat2": pd.read_csv(get_data_path("ung2009_nat2.csv")),
+        }
+    return _DATA_CACHE["ung2009"]

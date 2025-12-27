@@ -1,120 +1,161 @@
-"""Basic tests for CTAE package."""
-import sys
-sys.path.insert(0, '/home/runner/work/CTAE/CTAE')
-
+"""Basic tests for CTAE package using pytest."""
 import numpy as np
+import pytest
+
 import ctae
 
 
-def test_agb_lambert_ung_dbh():
-    """Test AGB_LambertUngDBH function."""
-    print("Testing AGB_LambertUngDBH...")
-    result = ctae.AGB_LambertUngDBH(20, species="PINU.CON")
-    print(f"  DBH=20, species=PINU.CON:")
-    print(f"    Btotal: {result['Btotal']}")
-    assert result['Btotal'] > 0, "Btotal should be positive"
-    
-    # Test with array input
-    result = ctae.AGB_LambertUngDBH(np.array([10, 20, 30]), species="PINU.CON")
-    print(f"  DBH=[10, 20, 30], species=PINU.CON:")
-    print(f"    Btotal: {result['Btotal']}")
-    assert len(result['Btotal']) == 3, "Should have 3 results"
-    print("  ✓ Passed")
+class TestAGBLambertUngDBH:
+    """Tests for AGB_LambertUngDBH function."""
+
+    def test_single_value(self):
+        """Test with single DBH value."""
+        result = ctae.AGB_LambertUngDBH(20, species="PINU.CON")
+        assert result["Btotal"] > 0, "Btotal should be positive"
+
+    def test_array_input(self):
+        """Test with array input."""
+        result = ctae.AGB_LambertUngDBH(np.array([10, 20, 30]), species="PINU.CON")
+        assert len(result["Btotal"]) == 3, "Should have 3 results"
+        assert all(result["Btotal"] > 0), "All Btotal values should be positive"
+
+    def test_all_components_returned(self):
+        """Test that all biomass components are returned."""
+        result = ctae.AGB_LambertUngDBH(20, species="PINU.CON")
+        expected_keys = ["Bwood", "Bbark", "Bstem", "Bfoliage", "Bbranches", "Bcrown", "Btotal"]
+        for key in expected_keys:
+            assert key in result, f"Missing key: {key}"
+
+    def test_invalid_species_raises(self):
+        """Test that invalid species raises ValueError."""
+        with pytest.raises(ValueError, match="Wrong species"):
+            ctae.AGB_LambertUngDBH(20, species="INVALID.SPP")
 
 
-def test_agb_lambert_ung_dbhht():
-    """Test AGB_LambertUngDBHHT function."""
-    print("Testing AGB_LambertUngDBHHT...")
-    result = ctae.AGB_LambertUngDBHHT(20, 17, species="PINU.CON")
-    print(f"  DBH=20, height=17, species=PINU.CON:")
-    print(f"    Btotal: {result['Btotal']}")
-    assert result['Btotal'] > 0, "Btotal should be positive"
-    print("  ✓ Passed")
+class TestAGBLambertUngDBHHT:
+    """Tests for AGB_LambertUngDBHHT function."""
+
+    def test_single_value(self):
+        """Test with single DBH and height value."""
+        result = ctae.AGB_LambertUngDBHHT(20, 17, species="PINU.CON")
+        assert result["Btotal"] > 0, "Btotal should be positive"
+
+    def test_all_components_returned(self):
+        """Test that all biomass components are returned."""
+        result = ctae.AGB_LambertUngDBHHT(20, 17, species="PINU.CON")
+        expected_keys = ["Bwood", "Bbark", "Bstem", "Bfoliage", "Bbranches", "Bcrown", "Btotal"]
+        for key in expected_keys:
+            assert key in result, f"Missing key: {key}"
 
 
-def test_v_huang():
-    """Test V_Huang function."""
-    print("Testing V_Huang...")
-    result = ctae.V_Huang(20, 20, "PICE.GLA")
-    print(f"  DBH=20, height=20, species=PICE.GLA:")
-    print(f"    v_merch: {result['v_merch']}")
-    print(f"    v_total: {result['v_total']}")
-    assert result['v_merch'] > 0, "v_merch should be positive"
-    assert result['v_total'] > result['v_merch'], "v_total should be greater than v_merch"
-    print("  ✓ Passed")
+class TestVHuang:
+    """Tests for V_Huang function."""
+
+    def test_single_value(self):
+        """Test with single DBH and height value."""
+        result = ctae.V_Huang(20, 20, "PICE.GLA")
+        assert result["v_merch"] > 0, "v_merch should be positive"
+        assert result["v_total"] > result["v_merch"], "v_total should be greater than v_merch"
+
+    def test_subregion_parameter(self):
+        """Test with subregion parameter."""
+        result = ctae.V_Huang(20, 20, "PICE.GLA", subregion="CP")
+        assert result["v_merch"] > 0, "v_merch should be positive"
+
+    def test_invalid_species_raises(self):
+        """Test that invalid species raises ValueError."""
+        with pytest.raises(ValueError, match="No model parameters available"):
+            ctae.V_Huang(20, 20, "INVALID.SPP")
 
 
-def test_v2b():
-    """Test V2B function."""
-    print("Testing V2B...")
-    result = ctae.V2B(350, species="PINU.CON", jurisdiction="BC", ecozone=4)
-    print(f"  volume=350, species=PINU.CON, jurisdiction=BC, ecozone=4:")
-    print(f"    b_total: {result['b_total']}")
-    assert result['b_total'] > 0, "b_total should be positive"
-    print("  ✓ Passed")
+class TestV2B:
+    """Tests for V2B function."""
+
+    def test_single_value(self):
+        """Test with single volume value."""
+        result = ctae.V2B(350, species="PINU.CON", jurisdiction="BC", ecozone=4)
+        assert result["b_total"] > 0, "b_total should be positive"
+
+    def test_all_components_returned(self):
+        """Test that all biomass components are returned."""
+        result = ctae.V2B(350, species="PINU.CON", jurisdiction="BC", ecozone=4)
+        expected_keys = ["b_m", "b_n", "b_nm", "b_s", "b_total", "b_bark", "b_branches", "b_foliage"]
+        for key in expected_keys:
+            assert key in result, f"Missing key: {key}"
+
+    def test_invalid_species_format_raises(self):
+        """Test that invalid species format raises ValueError."""
+        with pytest.raises(ValueError, match="Invalid species format"):
+            ctae.V2B(350, species="INVALID", jurisdiction="BC", ecozone=4)
 
 
-def test_vtot2vmerch():
-    """Test Vtot2Vmerch function."""
-    print("Testing Vtot2Vmerch...")
-    result = ctae.Vtot2Vmerch(300, species="PINU.CON", jurisdiction="AB", ecozone=4)
-    print(f"  total_volume=300, species=PINU.CON, jurisdiction=AB, ecozone=4:")
-    print(f"    merchantable_volume: {result}")
-    assert result > 0, "merchantable_volume should be positive"
-    assert result <= 300, "merchantable_volume should be <= total_volume"
-    print("  ✓ Passed")
+class TestVtot2Vmerch:
+    """Tests for Vtot2Vmerch function."""
+
+    def test_single_value(self):
+        """Test with single volume value."""
+        result = ctae.Vtot2Vmerch(300, species="PINU.CON", jurisdiction="AB", ecozone=4)
+        assert result > 0, "merchantable_volume should be positive"
+        assert result <= 300, "merchantable_volume should be <= total_volume"
 
 
-def test_agb_prop():
-    """Test AGB_prop function."""
-    print("Testing AGB_prop...")
-    result = ctae.AGB_prop(350, value_type="vol", species="PINU.CON", jurisdiction="BC", ecozone=4)
-    print(f"  value=350, value_type=vol, species=PINU.CON, jurisdiction=BC, ecozone=4:")
-    print(f"    Pstemwood: {result['Pstemwood']}")
-    print(f"    Pbark: {result['Pbark']}")
-    print(f"    Pbranches: {result['Pbranches']}")
-    print(f"    Pfoliage: {result['Pfoliage']}")
-    total_prop = result['Pstemwood'] + result['Pbark'] + result['Pbranches'] + result['Pfoliage']
-    print(f"    Total proportion: {total_prop}")
-    assert abs(total_prop - 1.0) < 0.001, "Proportions should sum to 1"
-    print("  ✓ Passed")
+class TestAGBProp:
+    """Tests for AGB_prop function."""
+
+    def test_proportions_sum_to_one(self):
+        """Test that proportions sum to 1."""
+        result = ctae.AGB_prop(350, value_type="vol", species="PINU.CON", jurisdiction="BC", ecozone=4)
+        total_prop = result["Pstemwood"] + result["Pbark"] + result["Pbranches"] + result["Pfoliage"]
+        assert abs(total_prop - 1.0) < 0.001, "Proportions should sum to 1"
+
+    def test_all_proportions_returned(self):
+        """Test that all proportion components are returned."""
+        result = ctae.AGB_prop(350, value_type="vol", species="PINU.CON", jurisdiction="BC", ecozone=4)
+        expected_keys = ["Pstemwood", "Pbark", "Pbranches", "Pfoliage"]
+        for key in expected_keys:
+            assert key in result, f"Missing key: {key}"
+
+    def test_invalid_value_type_raises(self):
+        """Test that invalid value_type raises ValueError."""
+        with pytest.raises(ValueError, match="Must specify what is the type of input"):
+            ctae.AGB_prop(350, value_type="invalid", species="PINU.CON", jurisdiction="BC", ecozone=4)
 
 
-def test_ung2009():
-    """Test Ung2009 function."""
-    print("Testing Ung2009...")
-    result = ctae.Ung2009(species="ABIE.BAL", age=range(1, 10), GDD=1500, PREC=800)
-    print(f"  species=ABIE.BAL, age=1-9, GDD=1500, PREC=800:")
-    print(f"    Number of rows: {len(result)}")
-    print(f"    Columns: {list(result.columns)}")
-    print(f"    First few rows:")
-    print(result.head())
-    assert len(result) == 9, "Should have 9 rows"
-    assert 'H' in result.columns, "Should have H column"
-    assert 'V' in result.columns, "Should have V column"
-    assert 'V2' in result.columns, "Should have V2 column"
-    print("  ✓ Passed")
+class TestUng2009:
+    """Tests for Ung2009 function."""
 
+    def test_basic_usage(self):
+        """Test basic usage with default model."""
+        result = ctae.Ung2009(species="ABIE.BAL", age=range(1, 10), GDD=1500, PREC=800)
+        assert len(result) == 9, "Should have 9 rows"
+        assert "H" in result.columns, "Should have H column"
+        assert "V" in result.columns, "Should have V column"
+        assert "V2" in result.columns, "Should have V2 column"
 
-if __name__ == "__main__":
-    print("\n" + "="*60)
-    print("Running CTAE Package Tests")
-    print("="*60 + "\n")
-    
-    test_agb_lambert_ung_dbh()
-    print()
-    test_agb_lambert_ung_dbhht()
-    print()
-    test_v_huang()
-    print()
-    test_v2b()
-    print()
-    test_vtot2vmerch()
-    print()
-    test_agb_prop()
-    print()
-    test_ung2009()
-    
-    print("\n" + "="*60)
-    print("All tests passed! ✓")
-    print("="*60)
+    def test_nat1_model_only(self):
+        """Test using only Nat1 model."""
+        result = ctae.Ung2009(species="ABIE.BAL", age=range(1, 10), GDD=1500, PREC=800, model="Nat1")
+        assert "H" in result.columns, "Should have H column"
+        assert "V" in result.columns, "Should have V column"
+        assert "V2" not in result.columns, "Should not have V2 column"
+
+    def test_nat2_model_only(self):
+        """Test using only Nat2 model."""
+        result = ctae.Ung2009(species="ABIE.BAL", age=range(1, 10), GDD=1500, PREC=800, model="Nat2")
+        assert "V2" in result.columns, "Should have V2 column"
+        assert "H" not in result.columns, "Should not have H column"
+
+    def test_invalid_species_raises(self):
+        """Test that invalid species raises ValueError."""
+        with pytest.raises(ValueError, match="Invalid species"):
+            ctae.Ung2009(species="INVALID.SPP", age=range(1, 10), GDD=1500, PREC=800)
+
+    def test_invalid_model_raises(self):
+        """Test that invalid model raises ValueError."""
+        with pytest.raises(ValueError, match="model must be one of"):
+            ctae.Ung2009(species="ABIE.BAL", age=range(1, 10), GDD=1500, PREC=800, model="invalid")
+
+    def test_zero_age_raises(self):
+        """Test that zero or negative age raises ValueError."""
+        with pytest.raises(ValueError, match="Age must be greater than 0"):
+            ctae.Ung2009(species="ABIE.BAL", age=[0, 1, 2], GDD=1500, PREC=800)
