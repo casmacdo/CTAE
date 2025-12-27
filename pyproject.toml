@@ -1,21 +1,111 @@
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "ctae"
-version = "0.4.3"
+version = "0.4.4"
 description = "Canadian Tree Allometric Equations - Python implementation"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "GPL-3.0"}
 authors = [
     {name = "Piotr Tompalski", email = "piotr.tompalski@NRCan-RNCan.gc.ca"},
+    {name = "Juha Metsaranta"},
+    {name = "Vinicius Manvailer Goncalves"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
     "numpy>=1.20.0",
     "pandas>=1.3.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "mypy>=1.0.0",
+    "pandas-stubs>=1.5.0",
+    "pre-commit>=3.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+]
+
 [project.urls]
 Homepage = "https://github.com/casmacdo/CTAE"
+Repository = "https://github.com/casmacdo/CTAE"
+Documentation = "https://github.com/casmacdo/CTAE#readme"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ctae*"]
+
+[tool.setuptools.package-data]
+ctae = ["data/*.csv", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+strict_optional = true
+ignore_missing_imports = true
+show_error_codes = true
+files = ["ctae"]
+exclude = ["tests", "examples.py"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.mypy_cache
+    | \.pytest_cache
+    | __pycache__
+    | build
+    | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["ctae"]
+skip = [".git", "__pycache__", "build", "dist"]
+
+[tool.coverage.run]
+source = ["ctae"]
+omit = ["tests/*", "examples.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

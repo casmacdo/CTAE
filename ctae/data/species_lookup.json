@@ -4,20 +4,271 @@
     "crown_b": 0.38,
     "max_radius_m": 12.0,
     "interception_rate": 0.28,
-    "leaf_type": "deciduous"
+    "leaf_type": "deciduous",
+    "ctae_code": "ACER.SAC"
   },
   "Acer platanoides": {
     "crown_a": 0.4,
     "crown_b": 0.36,
     "max_radius_m": 11.0,
     "interception_rate": 0.26,
-    "leaf_type": "deciduous"
+    "leaf_type": "deciduous",
+    "ctae_code": "ACER.PLA"
+  },
+  "Acer rubrum": {
+    "crown_a": 0.4,
+    "crown_b": 0.35,
+    "max_radius_m": 10.0,
+    "interception_rate": 0.25,
+    "leaf_type": "deciduous",
+    "ctae_code": "ACER.RUB"
   },
   "Tilia americana": {
     "crown_a": 0.3,
     "crown_b": 0.40,
     "max_radius_m": 13.0,
     "interception_rate": 0.30,
-    "leaf_type": "deciduous"
+    "leaf_type": "deciduous",
+    "ctae_code": "TILI.AME"
+  },
+  "Quercus rubra": {
+    "crown_a": 0.5,
+    "crown_b": 0.42,
+    "max_radius_m": 14.0,
+    "interception_rate": 0.27,
+    "leaf_type": "deciduous",
+    "ctae_code": "QUER.RUB"
+  },
+  "Fagus grandifolia": {
+    "crown_a": 0.4,
+    "crown_b": 0.38,
+    "max_radius_m": 12.0,
+    "interception_rate": 0.28,
+    "leaf_type": "deciduous",
+    "ctae_code": "FAGU.GRA"
+  },
+  "Betula papyrifera": {
+    "crown_a": 0.3,
+    "crown_b": 0.32,
+    "max_radius_m": 9.0,
+    "interception_rate": 0.22,
+    "leaf_type": "deciduous",
+    "ctae_code": "BETU.PAP"
+  },
+  "Betula alleghaniensis": {
+    "crown_a": 0.35,
+    "crown_b": 0.34,
+    "max_radius_m": 10.0,
+    "interception_rate": 0.24,
+    "leaf_type": "deciduous",
+    "ctae_code": "BETU.ALL"
+  },
+  "Populus tremuloides": {
+    "crown_a": 0.2,
+    "crown_b": 0.28,
+    "max_radius_m": 7.0,
+    "interception_rate": 0.18,
+    "leaf_type": "deciduous",
+    "ctae_code": "POPU.TRE"
+  },
+  "Populus balsamifera": {
+    "crown_a": 0.25,
+    "crown_b": 0.30,
+    "max_radius_m": 8.0,
+    "interception_rate": 0.20,
+    "leaf_type": "deciduous",
+    "ctae_code": "POPU.BAL"
+  },
+  "Populus grandidentata": {
+    "crown_a": 0.22,
+    "crown_b": 0.29,
+    "max_radius_m": 7.5,
+    "interception_rate": 0.19,
+    "leaf_type": "deciduous",
+    "ctae_code": "POPU.GRA"
+  },
+  "Fraxinus americana": {
+    "crown_a": 0.4,
+    "crown_b": 0.36,
+    "max_radius_m": 11.0,
+    "interception_rate": 0.25,
+    "leaf_type": "deciduous",
+    "ctae_code": "FRAX.AME"
+  },
+  "Fraxinus nigra": {
+    "crown_a": 0.35,
+    "crown_b": 0.33,
+    "max_radius_m": 9.0,
+    "interception_rate": 0.23,
+    "leaf_type": "deciduous",
+    "ctae_code": "FRAX.NIG"
+  },
+  "Ulmus americana": {
+    "crown_a": 0.5,
+    "crown_b": 0.40,
+    "max_radius_m": 15.0,
+    "interception_rate": 0.30,
+    "leaf_type": "deciduous",
+    "ctae_code": "ULMU.AME"
+  },
+  "Picea glauca": {
+    "crown_a": 0.2,
+    "crown_b": 0.22,
+    "max_radius_m": 5.0,
+    "interception_rate": 0.35,
+    "leaf_type": "coniferous",
+    "ctae_code": "PICE.GLA"
+  },
+  "Picea mariana": {
+    "crown_a": 0.15,
+    "crown_b": 0.18,
+    "max_radius_m": 4.0,
+    "interception_rate": 0.32,
+    "leaf_type": "coniferous",
+    "ctae_code": "PICE.MAR"
+  },
+  "Picea rubens": {
+    "crown_a": 0.2,
+    "crown_b": 0.20,
+    "max_radius_m": 4.5,
+    "interception_rate": 0.33,
+    "leaf_type": "coniferous",
+    "ctae_code": "PICE.RUB"
+  },
+  "Picea engelmannii": {
+    "crown_a": 0.18,
+    "crown_b": 0.20,
+    "max_radius_m": 4.5,
+    "interception_rate": 0.34,
+    "leaf_type": "coniferous",
+    "ctae_code": "PICE.ENG"
+  },
+  "Pinus contorta": {
+    "crown_a": 0.2,
+    "crown_b": 0.24,
+    "max_radius_m": 5.0,
+    "interception_rate": 0.30,
+    "leaf_type": "coniferous",
+    "ctae_code": "PINU.CON"
+  },
+  "Pinus banksiana": {
+    "crown_a": 0.18,
+    "crown_b": 0.22,
+    "max_radius_m": 4.5,
+    "interception_rate": 0.28,
+    "leaf_type": "coniferous",
+    "ctae_code": "PINU.BAN"
+  },
+  "Pinus strobus": {
+    "crown_a": 0.3,
+    "crown_b": 0.30,
+    "max_radius_m": 8.0,
+    "interception_rate": 0.32,
+    "leaf_type": "coniferous",
+    "ctae_code": "PINU.STR"
+  },
+  "Pinus resinosa": {
+    "crown_a": 0.25,
+    "crown_b": 0.26,
+    "max_radius_m": 6.0,
+    "interception_rate": 0.30,
+    "leaf_type": "coniferous",
+    "ctae_code": "PINU.RES"
+  },
+  "Abies balsamea": {
+    "crown_a": 0.2,
+    "crown_b": 0.20,
+    "max_radius_m": 4.5,
+    "interception_rate": 0.35,
+    "leaf_type": "coniferous",
+    "ctae_code": "ABIE.BAL"
+  },
+  "Abies lasiocarpa": {
+    "crown_a": 0.18,
+    "crown_b": 0.18,
+    "max_radius_m": 4.0,
+    "interception_rate": 0.34,
+    "leaf_type": "coniferous",
+    "ctae_code": "ABIE.LAS"
+  },
+  "Tsuga canadensis": {
+    "crown_a": 0.25,
+    "crown_b": 0.25,
+    "max_radius_m": 6.0,
+    "interception_rate": 0.36,
+    "leaf_type": "coniferous",
+    "ctae_code": "TSUG.CAN"
+  },
+  "Tsuga heterophylla": {
+    "crown_a": 0.28,
+    "crown_b": 0.26,
+    "max_radius_m": 7.0,
+    "interception_rate": 0.37,
+    "leaf_type": "coniferous",
+    "ctae_code": "TSUG.HET"
+  },
+  "Thuja occidentalis": {
+    "crown_a": 0.2,
+    "crown_b": 0.22,
+    "max_radius_m": 5.0,
+    "interception_rate": 0.38,
+    "leaf_type": "coniferous",
+    "ctae_code": "THUJ.OCC"
+  },
+  "Larix laricina": {
+    "crown_a": 0.18,
+    "crown_b": 0.20,
+    "max_radius_m": 4.0,
+    "interception_rate": 0.22,
+    "leaf_type": "deciduous",
+    "ctae_code": "LARI.LAR"
+  },
+  "Larix occidentalis": {
+    "crown_a": 0.22,
+    "crown_b": 0.24,
+    "max_radius_m": 5.0,
+    "interception_rate": 0.24,
+    "leaf_type": "deciduous",
+    "ctae_code": "LARI.OCC"
+  },
+  "Pseudotsuga menziesii": {
+    "crown_a": 0.3,
+    "crown_b": 0.28,
+    "max_radius_m": 8.0,
+    "interception_rate": 0.35,
+    "leaf_type": "coniferous",
+    "ctae_code": "PSEU.MEN"
+  },
+  "Prunus serotina": {
+    "crown_a": 0.35,
+    "crown_b": 0.32,
+    "max_radius_m": 9.0,
+    "interception_rate": 0.24,
+    "leaf_type": "deciduous",
+    "ctae_code": "PRUN.SER"
+  },
+  "Juglans nigra": {
+    "crown_a": 0.45,
+    "crown_b": 0.38,
+    "max_radius_m": 12.0,
+    "interception_rate": 0.26,
+    "leaf_type": "deciduous",
+    "ctae_code": "JUGL.NIG"
+  },
+  "Carya ovata": {
+    "crown_a": 0.4,
+    "crown_b": 0.35,
+    "max_radius_m": 10.0,
+    "interception_rate": 0.25,
+    "leaf_type": "deciduous",
+    "ctae_code": "CARY.OVA"
+  },
+  "Ostrya virginiana": {
+    "crown_a": 0.25,
+    "crown_b": 0.28,
+    "max_radius_m": 6.0,
+    "interception_rate": 0.22,
+    "leaf_type": "deciduous",
+    "ctae_code": "OSTR.VIR"
   }
 }

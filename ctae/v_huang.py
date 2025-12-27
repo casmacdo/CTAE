@@ -105,7 +105,11 @@ def V_Huang(
 
     # Check if number of parameters is correct (need to be 8)
     if len(params) != 8:
-        raise ValueError("Error in parameter selection")
+        raise ValueError(
+            f"Incomplete parameters for species '{species}' in subregion '{subregion}'. "
+            f"Found {len(params)} parameters (expected 8). "
+            "This may indicate a data issue or unsupported species/subregion combination."
+        )
 
     # Create coefficient dictionary
     coeffs = {}

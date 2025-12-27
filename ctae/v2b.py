@@ -2,12 +2,13 @@
 Volume-to-biomass conversion.
 
 Based on:
-Boudewyn, P.A.; Song, X.; Magnussen, S.; Gillis, M.D. (2007). Model-based, 
-volume-to-biomass conversion for forested and vegetated land in Canada. 
-Natural Resources Canada, Canadian Forest Service, Pacific Forestry Centre, 
+Boudewyn, P.A.; Song, X.; Magnussen, S.; Gillis, M.D. (2007). Model-based,
+volume-to-biomass conversion for forested and vegetated land in Canada.
+Natural Resources Canada, Canadian Forest Service, Pacific Forestry Centre,
 Victoria, BC. Information Report BC-X-411. 112 p.
 """
 import numpy as np
+import pandas as pd
 from typing import Dict, Union
 from .data_loader import load_parameters_v2b
 
@@ -38,7 +39,12 @@ def _get_v2b_params(genus: str, species: str, variety: str, jurisdiction: str, e
         B3 = B3[B3["variety"].isna()]
     
     if len(B3) != 1:
-        raise ValueError("Error in parameter selection for B3")
+        raise ValueError(
+            f"No parameters found for species '{genus}.{species}' "
+            f"in jurisdiction '{jurisdiction}', ecozone {ecozone}. "
+            f"Found {len(B3)} matching records (expected 1). "
+            "Check that the species code, jurisdiction, and ecozone are valid."
+        )
 
     # Get B4 parameters
     B4 = V2B_params_t4[
@@ -54,7 +60,11 @@ def _get_v2b_params(genus: str, species: str, variety: str, jurisdiction: str, e
         B4 = B4[B4["variety"].isna()]
     
     if len(B4) != 1:
-        raise ValueError("Error in parameter selection for B4")
+        raise ValueError(
+            f"No nonmerchantable factor parameters found for species '{genus}.{species}' "
+            f"in jurisdiction '{jurisdiction}', ecozone {ecozone}. "
+            f"Found {len(B4)} matching records (expected 1)."
+        )
 
     # Get B5 parameters (sapling factor - not available for all models)
     B5 = V2B_params_t5[
@@ -121,7 +131,11 @@ def _get_v2b_params(genus: str, species: str, variety: str, jurisdiction: str, e
         B7bio = B7bio[B7bio["variety"].isna()]
 
     if len(B6vol) != 1 or len(B6bio) != 1:
-        raise ValueError("Error in parameter selection for B6")
+        raise ValueError(
+            f"No proportion parameters found for species '{genus}.{species}' "
+            f"in jurisdiction '{jurisdiction}', ecozone {ecozone}. "
+            f"Found {len(B6vol)} volume and {len(B6bio)} biomass records (expected 1 each)."
+        )
 
     return {
         "B3": B3.iloc[0],
@@ -185,9 +199,6 @@ def V2B(
     if not isinstance(ecozone, int):
         raise TypeError("'ecozone' must be type int")
 
-    # Import pandas here to avoid circular import
-    import pandas as pd
-
     # Convert 'species' to: genus, species, variety
     species_parts = species.split(".")
 
@@ -196,7 +207,11 @@ def V2B(
         spp = species_parts[1]
         variety = species_parts[2] if len(species_parts) > 2 else None
     else:
-        raise ValueError("Wrong species format")
+        raise ValueError(
+            f"Invalid species format '{species}'. "
+            "Expected format: 'GENUS.SPECIES' (e.g., 'PINU.CON') or "
+            "'GENUS.SPECIES.VARIETY' (e.g., 'PINU.CON.LAT')."
+        )
 
     # Get parameters
     B = _get_v2b_params(
